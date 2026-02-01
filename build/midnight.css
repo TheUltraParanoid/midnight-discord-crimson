@@ -772,8 +772,8 @@ body {
         /* --background-tile-gradient-pink-end: yellow;
         --background-tile-gradient-pink-start: lime; */
         --badge-background-default: var(--accent-2);
-        --badge-expressive-background-default: magenta;
-        --badge-expressive-text-default: red;
+        --badge-expressive-background-default: var(--accent-2);
+        --badge-expressive-text-default: var(--text-0);
         --badge-notification-background: var(--accent-new);
         --badge-text-default: var(--text-0);
         --bg-surface-overlay-tmp: var(--bg-3);
@@ -802,15 +802,15 @@ body {
         --chat-text-muted: var(--text-5);
         --checkbox-background-active: blue;
         --checkbox-background-default: var(--bg-2);
-        --checkbox-background-hover: red;
+        --checkbox-background-hover: var(--bg-1);
         --checkbox-background-selected-default: var(--accent-2);
-        --checkbox-background-selected-hover: lime;
-        --checkbox-border-active: blue;
+        --checkbox-background-selected-hover: var(--accent-3);
+        --checkbox-border-active: var(--border);
         --checkbox-border-default: var(--border);
-        --checkbox-border-hover: red;
-        --checkbox-border-selected-default: yellow;
-        --checkbox-border-selected-hover: lime;
-        --checkbox-icon-active: blue;
+        --checkbox-border-hover: var(--border);
+        --checkbox-border-selected-default: var(--button-border);
+        --checkbox-border-selected-hover: var(--button-border);
+        --checkbox-icon-active: var(--text-0);
         --chip-blurple-dark-background: magenta;
         --chip-blurple-dark-text: red;
         --chip-blurple-light-background: yellow;
@@ -1013,7 +1013,7 @@ body {
         --icon-feedback-positive: var(--green-1);
         --icon-feedback-warning: var(--yellow-1);
         --icon-invert: magenta;
-        --icon-link: red;
+        --icon-link: var(--text-4);
         --icon-muted: var(--text-5);
         --icon-status-dnd: var(--dnd);
         --icon-status-idle: var(--idle);
@@ -1083,20 +1083,20 @@ body {
         --profile-gradient-role-pill-background: blue;
         --profile-gradient-role-pill-border: magenta;
         --profile-gradient-section-box: red;
-        --radio-background-active: yellow;
-        --radio-background-default: lime;
-        --radio-background-hover: blue;
-        --radio-background-selected-default: magenta;
-        --radio-background-selected-hover: red;
-        --radio-border-active: yellow;
-        --radio-border-default: lime;
-        --radio-border-hover: blue;
-        --radio-border-selected-default: magenta;
-        --radio-border-selected-hover: red;
+        --radio-background-active: var(--bg-2);
+        --radio-background-default: var(--bg-3);
+        --radio-background-hover: var(--bg-2);
+        --radio-background-selected-default: var(--accent-2);
+        --radio-background-selected-hover: var(--accent-3);
+        --radio-border-active: var(--border);
+        --radio-border-default: var(--border);
+        --radio-border-hover: var(--border);
+        --radio-border-selected-default: var(--button-border);
+        --radio-border-selected-hover: var(--button-border);
         --radio-foreground-active: yellow;
         --radio-foreground-default: lime;
         --radio-foreground-hover: blue;
-        --radio-thumb-background-active: magenta;
+        --radio-thumb-background-active: var(--text-0);
         --redesign-button-active-background: red;
         --redesign-button-active-pressed-background: yellow;
         --redesign-button-active-text: lime;
@@ -1188,7 +1188,7 @@ body {
         --text-link: var(--accent-1);
         --text-muted: var(--text-5);
         --text-overlay-dark: magenta;
-        --text-overlay-light: red;
+        --text-overlay-light: var(--text-0);
         --text-status-dnd: var(--dnd);
         --text-status-idle: var(--idle);
         --text-status-offline: var(--offline);
@@ -1200,7 +1200,7 @@ body {
         --user-profile-activity-toolbar-background: magenta;
         --user-profile-background-hover: var(--hover);
         --user-profile-border: var(--border);
-        --user-profile-note-background-focus: lime;
+        --user-profile-note-background-focus: var(--bg-4);
         --user-profile-overlay-background: var(--bg-4);
         --user-profile-overlay-background-hover: var(--hover);
         --user-profile-toolbar-background: var(--bg-3);
@@ -1599,6 +1599,13 @@ body {
         background: var(--accent-3);
         color: var(--text-0);
     }
+
+    .switchIndicator_a28278[style*='background-color: rgb(88, 101, 242)'] {
+        background-color: var(--accent-3) !important;
+    }
+    .switchIndicator_a28278[style*='background-color: rgb(68, 82, 187)'] {
+        background-color: var(--accent-4) !important;
+    }
 }
 
 /* dms-button.css */
@@ -1789,7 +1796,7 @@ body {
     #app-mount {
         --custom-channel-header-height: calc(var(--guildbar-avatar-size) + var(--space-xs) + var(--border-thickness) * 2);
         /* --top-bar-right-margin: calc(32px + var(--space-xs)); */
-        --top-bar-right-margin: calc(32px * 2 + 2 * var(--space-xs));
+        --top-bar-right-margin: calc(32px + var(--space-xs));
     }
 
     .title_c38106,
@@ -1856,7 +1863,7 @@ body {
     .base__5e434:has(.notice__6e2b9) > .bar_c38106 > .trailing_c38106 {
         top: calc(var(--top-bar-height) + 8px + 40px + var(--gap) + var(--border-thickness));
     }
-    /* .base__5e434:has(.winButtons_c38106) {
+    .base__5e434:has(.winButtons_c38106) {
         --top-bar-right-margin: calc(32px + 3 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
     }
     .base__5e434:has(.trailing_c38106 > .button__85643) {
@@ -1864,8 +1871,8 @@ body {
     }
     .base__5e434:has(.winButtons_c38106):has(.trailing_c38106 > .button__85643) {
         --top-bar-right-margin: calc(32px * 2 + 5 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
-    } */
-    .base__5e434:has(.trailing_c38106 > .button__85643:nth-of-type(3)) {
+    }
+    /* .base__5e434:has(.trailing_c38106 > .button__85643:nth-of-type(3)) {
         --top-bar-right-margin: calc(32px * 3 + 3 * var(--space-xs));
     }
     .base__5e434:has(.winButtons_c38106) {
@@ -1873,7 +1880,7 @@ body {
     }
     .base__5e434:has(.winButtons_c38106):has(.trailing_c38106 > .button__85643:nth-of-type(3)) {
         --top-bar-right-margin: calc(32px * 3 + 6 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
-    }
+    } */
 }
 
 @property --top-bar-title-position {

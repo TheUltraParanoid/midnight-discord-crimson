@@ -3,10 +3,9 @@
 
 :root {
     container-name: root;
+
     --custom-guild-list-padding: 12px;
     --panel-backdrop-filter: none;
-
-    --border-hover: var(--border-subtle);
 }
 
 body {
@@ -42,7 +41,7 @@ body {
 .container_fb64c9 > .container__9293f /* new thread panel */,
 .peopleColumn__133bf /* online friends */,
 .nowPlayingColumn__133bf /* active now */,
-.mainPageScroller_ca1a02 /* nitro page */,
+.mainPageScroller__80907 /* nitro page */,
 .headerBar__1a9ce /* quests page titlebar */,
 .scroller__23746 /* quests page */,
 .container_f391e3 > .content_f75fb0 /* message requests */,
@@ -58,7 +57,8 @@ body {
 .chat_f75fb0 > .header_c791b2 /* server members header */,
 .chat_f75fb0 > .scrollerBase_d125d2 /* server members page */,
 .chat_f75fb0 > .header__0b563  /* server channels and roles header */,
-.chat_f75fb0 > .container__0b563 /* server channels and roles page */ {
+.chat_f75fb0 > .container__0b563 /* server channels and roles page */,
+.container__8a031 /* popout modals */ {
     background-color: var(--background-base-lower);
     border-radius: var(--radius-lg);
     border: var(--border-thickness) solid var(--border-subtle);
@@ -77,7 +77,8 @@ body {
     width: 100%;
 }
 
-.sidebar__5e434 /* server list + channel list + user panel group */ {
+.sidebar__5e434 /* server list + channel list + user panel group */,
+.popout__0bd4a .content__0bd4a /* VC popout spacing */ {
     margin: 0 var(--gap) var(--gap) var(--gap);
 }
 
@@ -267,7 +268,7 @@ body {
     border: none;
     background: none;
 }
-.chat_a44415::before /* vc chat shadow */ {
+.chat_ee72fa::before /* VC / thread chat shadow */ {
     display: none;
 }
 .channelChatWrapper_cb9592 /* vc chat + titlebar group outer */ {
@@ -296,21 +297,36 @@ body {
     background-color: var(--background-base-lower);
 }
 
-.wrapper_cb9592 /* dm vc wrapper */ {
+/* DM / server VC containers */
+.wrapper_cb9592 {
     background: none;
-    margin-bottom: var(--gap);
 }
 .wrapper_cb9592.fullScreen_cb9592 {
     margin-top: var(--gap);
     margin-left: var(--gap);
     width: calc(100% - var(--gap));
     height: calc(100% - var(--gap));
+
+    + div + div .container__01ae2 {
+        margin-top: var(--gap);
+    }
+}
+.popout__0bd4a .content__0bd4a:has(> div > .wrapper_cb9592.fullScreen_cb9592) {
+    margin-left: 0;
+}
+/* Fullscreen VC popout backdrop */
+#app-mount::backdrop {
+    display: none;
+}
+
+/* Apply gap to mod view container */
+.sidebarContainer__656be {
+    margin-inline-start: var(--gap);
 }
 
 /* remove excess background from settings  */
 .standardSidebarView__23e6b,
 .contentRegion__23e6b,
-.sidebarRegionScroller__23e6b,
 .contentRegionScroller__23e6b {
     background: none;
 }
@@ -327,22 +343,41 @@ body {
 .page__5e434 > .chat_f75fb0 /* friend page, server members page */ {
     background: none !important;
 }
+.titleBar__0bd4a /* VC popout titlebar */ {
+    background: none;
+}
 
-.newMessagesBar__0f481 /* unread messages bar */ {
+/* channel messages bar */
+.barBase__0f481:not(.bottomBar__0f481) {
     top: 12px;
     left: 12px;
     right: 12px;
     border-radius: var(--radius-sm);
     padding: 0 8px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* "This channel is not in your channel list" header */
+.chatHeaderBar_dc83f5 {
+    margin: 12px;
+    margin-bottom: 0;
+    padding-left: 16px;
+    background-color: var(--bg-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+
+    &::after {
+        display: none;
+    }
 }
 
 .bottom__7aaec /* channel list new unreads pill */,
-    .unreadBottom__629e4 /* channel list non-community unread pill */ {
+.unreadBottom__629e4 /* channel list non-community unread pill */ {
     bottom: 0;
 }
 
 .unreadMentionsIndicatorBottom_ef3116 /* server list new pill */,
-    .unreadMentionsIndicatorTop_ef3116 {
+.unreadMentionsIndicatorTop_ef3116 {
     width: calc(var(--guildbar-avatar-size) + var(--custom-guild-list-padding) * 2);
     padding: calc(var(--custom-guild-list-padding) / 2);
 }
@@ -355,7 +390,7 @@ body {
 .channelTextArea_f75fb0 /* chat bar */ {
     border-radius: var(--radius-md);
 }
-.themedBackground__74017 /* chat bar inner */ {
+.form_f75fb0 .themedBackground__74017 /* chat bar inner */ {
     background: none;
 }
 .slateTextArea_ec4baf /* actual typing area */ {
@@ -414,21 +449,21 @@ body {
 
 /* improve borders */
 .reaction__23977 /* message reactions */,
-    .reactionBtn__23977.forceShow__23977 /* add reaction button */ {
+.reactionBtn__23977.forceShow__23977 /* add reaction button */ {
     border-width: 2px;
 }
 
 /* roundness */
 .embedFull__623de /* embeds */,
-    .hljs /* code block */,
-    .imageWrapper_af017a /* image */,
-    .container__9271d /* thread link */ {
+.hljs /* code block */,
+.imageWrapper_af017a /* image */,
+.container__9271d /* thread link */ {
     border-radius: var(--radius-md);
 }
 
 .outer_c0bea0 /* profile outer */, 
-    .contentWrapper__08434  /* gif panel */ {
-    border-radius: var(--radius-lg);
+.contentWrapper__08434  /* gif panel */ {
+    border-radius: var(--radius-lg) !important;
 }
 .inner_c0bea0 /* profile inner */ {
     border-radius: calc(var(--radius-lg) - 4px);
@@ -447,12 +482,37 @@ body {
     margin-inline-start: 0;
     -webkit-margin-start: 0;
 }
-.container__37e49 .container__4bbc6 /* nameplate */ {
+.container__37e49 .container_df39b2 /* nameplate */ {
     border-radius: var(--radius-lg);
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
+}
+
+/* Fix screen share modal coloring and spacing */
+.container__8a031:has(> div > .footer_a55fdc) {
+    padding-bottom: 0;
+
+    .sourceOverlayCTA__2f580 {
+        color: var(--text-3);
+    }
+
+    .footer_a55fdc {
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+
+        .footerContent_a55fdc {
+            padding: var(--space-16) var(--space-24);
+        }
+    }
+}
+.vcd-screen-picker-option-radio[data-checked="true"] span {
+    color: var(--text-0);
+}
+
+/* Activity popout message field */
+.replyInput__5ba62 {
+    background-color: var(--bg-4);
 }
 
 /* remove unnecessary backgrounds */
@@ -597,7 +657,7 @@ body {
     .scroller__36d07::-webkit-scrollbar-track {
         margin-bottom: calc(26px);
     }
-    .chatContent_f75fb0:has(.typing_b88801) .messagesWrapper__36d07::before {
+    .chatContent_f75fb0:has(> .form_f75fb0 > .typing_b88801) .messagesWrapper__36d07::before {
         content: '';
         position: absolute;
         bottom: 0;
@@ -648,12 +708,22 @@ body {
         padding: 0;
         border-radius: var(--radius-lg);
         border: var(--border-thickness) solid var(--border-subtle);
+        background-color: var(--bg-4);
         backdrop-filter: var(--panel-backdrop-filter);
         transition: border-color var(--border-hover-transition);
 
         &:hover {
             border-color: var(--border-hover);
         }
+    }
+    /* "This channel is not in your channel list" header */
+    .chatHeaderBar_dc83f5 {
+        margin: 0px;
+        margin-bottom: var(--gap);
+        padding-left: 28px;
+        border-width: var(--border-thickness);
+        border-radius: var(--radius-lg);
+        background-color: var(--bg-4);
     }
 }
 
@@ -777,9 +847,9 @@ body {
         --badge-notification-background: var(--accent-new);
         --badge-text-default: var(--text-0);
         --bg-surface-overlay-tmp: var(--bg-3);
-        --bg-surface-raised: blue;
-        --border-feedback-critical: magenta;
-        --border-focus: red;
+        --bg-surface-raised: var(--bg-3);
+        --border-feedback-critical: var(--border);
+        --border-focus: var(--border);
         --border-muted: var(--border-light);
         --border-normal: var(--border);
         --border-strong: var(--border);
@@ -1007,7 +1077,7 @@ body {
         --expressive-gradient-tenure-badge-silver-start: magenta; */
         --gradient-progress-pill-background: var(--text-5);
         --home-background: var(--bg-4);
-        --icon-default: lime;
+        --icon-default: var(--text-4);
         --icon-feedback-critical: var(--red-1);
         --icon-feedback-info: var(--blue-1);
         --icon-feedback-positive: var(--green-1);
@@ -1022,6 +1092,7 @@ body {
         --icon-strong: var(--text-3);
         --icon-subtle: var(--text-4);
         --icon-transparent: lime;
+        --icon-voice-muted: var(--accent-new);
         --input-background-default: var(--bg-3);
         --input-background-error-default: color-mix(in hsl, var(--red-2), transparent 90%);
         --input-border-active: var(--accent-2);
@@ -1063,7 +1134,7 @@ body {
         --modal-background: var(--bg-4);
         --modal-footer-background: var(--bg-4);
         --navigator-header-tint: lime;
-        --notice-background-critical: var(--red-3);
+        --notice-background-critical: var(--bg-3);
         --notice-background-info: var(--blue-3);
         --notice-background-positive: var(--green-3);
         --notice-background-warning: var(--yellow-3);
@@ -1083,9 +1154,9 @@ body {
         --profile-gradient-role-pill-background: blue;
         --profile-gradient-role-pill-border: magenta;
         --profile-gradient-section-box: red;
-        --radio-background-active: var(--bg-2);
-        --radio-background-default: var(--bg-3);
-        --radio-background-hover: var(--bg-2);
+        --radio-background-active: var(--bg-1);
+        --radio-background-default: var(--bg-2);
+        --radio-background-hover: var(--bg-1);
         --radio-background-selected-default: var(--accent-2);
         --radio-background-selected-hover: var(--accent-3);
         --radio-border-active: var(--border);
@@ -1136,9 +1207,9 @@ body {
         --redesign-button-tertiary-text: red;
         --scrollbar-auto-scrollbar-color-thumb: yellow;
         --scrollbar-auto-scrollbar-color-track: lime;
-        --scrollbar-auto-thumb: var(--bg-3);
+        --scrollbar-auto-thumb: var(--bg-1);
         --scrollbar-auto-track: transparent;
-        --scrollbar-thin-thumb: var(--bg-3);
+        --scrollbar-thin-thumb: var(--bg-1);
         --scrollbar-thin-track: transparent;
         --spine-default: var(--text-5);
         --spoiler-hidden-background: yellow;
@@ -1154,16 +1225,16 @@ body {
         --status-warning-background: red;
         --status-warning-text: yellow;
         --switch-background-active: lime;
-        --switch-background-default: blue;
-        --switch-background-hover: magenta;
-        --switch-background-selected-default: red;
-        --switch-background-selected-hover: yellow;
-        --switch-border-default: lime;
-        --switch-border-hover: blue;
-        --switch-border-selected-default: magenta;
-        --switch-border-selected-hover: red;
-        --switch-thumb-background-default: yellow;
-        --switch-thumb-background-selected-default: lime;
+        --switch-background-default: var(--bg-2);
+        --switch-background-hover: var(--bg-2);
+        --switch-background-selected-default: var(--accent-2);
+        --switch-background-selected-hover: var(--accent-2);
+        --switch-border-default: var(--border);
+        --switch-border-hover: var(--border-hover);
+        --switch-border-selected-default: var(--border-light);
+        --switch-border-selected-hover: var(--border-hover);
+        --switch-thumb-background-default: rgb(255, 255, 255);
+        --switch-thumb-background-selected-default: rgb(255, 255, 255);
         --switch-thumb-icon-active: blue;
         --switch-thumb-icon-default: magenta;
         --text-brand: var(--accent-1);
@@ -1209,6 +1280,7 @@ body {
         --white: var(--text-0);
         --white-500: var(--text-0);
 
+        --brand-260: var(--accent-2);
         --brand-360: var(--accent-2);
         --brand-500: var(--accent-2);
         --blurple-50: var(--accent-2);
@@ -1226,6 +1298,12 @@ body {
         --white-500: var(--text-1);
     }
 
+    /* User profile sidebar */
+    .user-profile-sidebar .inner_c0bea0 {
+        --user-profile-overlay-background: var(--bg-3);
+        --profile-gradient-secondary-color: var(--bg-4);
+    }
+
     ::placeholder {
         color: var(--text-5);
     }
@@ -1235,7 +1313,7 @@ body {
     }
 
     .modeUnreadImportant__2ea32 .icon__2ea32,
-        .wrapper__2ea32:hover .icon__2ea32 /* correct channel icon color */ {
+    .wrapper__2ea32:hover .icon__2ea32 /* correct channel icon color */ {
         color: var(--text-3);
     }
 
@@ -1252,6 +1330,10 @@ body {
         background: none;
     }
 
+    .sidebar__409aa, /* user settings sidebar */
+    .sidebarRegionScroller__23e6b /* server and channel settings sidebar */ {
+        background-color: var(--bg-3);
+    }
     .side_aa8da2 .item_aa8da2:hover /* settings tab */ {
         background-color: var(--bg-3) !important;
     }
@@ -1261,11 +1343,22 @@ body {
     }
 
     .quickSelectPopout_ebaca5 /* dm vc region select popout */,
-        .participantsButton__211d1 /* vc participants button */,
-        .voiceBar__7aaec /* n in voice bar (channel list) */,
-        .mainCard_f369db /* form posts */,
-        .accountProfileCard__1fed1 /* account settings profile background */ {
+    .participantsButton__211d1 /* vc participants button */,
+    .voiceBar__7aaec /* n in voice bar (channel list) */,
+    .mainCard_f369db /* form posts */,
+    .accountProfileCard_a27e58 /* account settings profile background */ {
         background-color: var(--bg-3);
+    }
+
+    /* User settings search bar coloring */
+    .fixedContent__409aa {
+        &::after {
+            background: linear-gradient(to bottom, var(--bg-3), transparent);
+        }
+
+        .searchBarContainer_cf016e .wrapper__72c38 {
+            background-color: var(--bg-4);
+        }
     }
 
     .colorable_f1ceac.primaryDark_f1ceac,
@@ -1325,12 +1418,12 @@ body {
     }
 
     .container__3f21e /* settings checkbutton background */,
-    .vc-switch-container {
+    [data-nav-anchor-key="vencord_plugins_category"] .vc-switch-container {
         background-color: var(--bg-1) !important;
         transition: background-color 0.2s ease;
     }
     .container__3f21e.checked__3f21e /* settings checkbutton background */,
-    .vc-switch-container.vc-switch-checked {
+    [data-nav-anchor-key="vencord_plugins_category"] .vc-switch-container.vc-switch-checked {
         background-color: var(--accent-2) !important;
     }
     .container__3f21e .slider__3f21e > svg > path /* settings checkbutton check */,
@@ -1526,10 +1619,6 @@ body {
         background: var(--background-message-highlight);
     }
 
-    .container__8a031 /* modal background */ {
-        background-color: var(--bg-4);
-    }
-
     .flash__03436[data-flash='true'] /* reply message flash */ {
         background: var(--reply);
     }
@@ -1594,17 +1683,49 @@ body {
         background: var(--bg-3);
     }
 
-    ::selection,
+    :is(div, span, code, a)::selection,
     .highlight {
         background: var(--accent-3);
         color: var(--text-0);
     }
 
-    .switchIndicator_a28278[style*='background-color: rgb(88, 101, 242)'] {
-        background-color: var(--accent-3) !important;
+    .switchIndicator_a28278 {
+        transition: 0.2s ease;
+
+        /* Default state */
+        &[style^='opacity: 1; background-color: rgb(88, 101, 242)'] {
+            background-color: var(--accent-3) !important;
+        }
+
+        /* Hovered state */
+        &[style^='opacity: 1; background-color: rgb(68, 82, 187)'] {
+            background-color: var(--accent-4) !important;
+        }
+
+        /* Clicked state */
+        &:has(> svg:not([style="left: 1px;"])) {
+            &:has(rect:not([height="16"])) {
+                background-color: var(--accent-5) !important;
+            }
+
+            .thumb_a28278 > svg path {
+                fill: var(--accent-2);
+            }
+        }
     }
-    .switchIndicator_a28278[style*='background-color: rgb(68, 82, 187)'] {
-        background-color: var(--accent-4) !important;
+
+    .selectedPill__1464f {
+        border-color: var(--accent-2) !important;
+    }
+    
+    /* Follow channel footer */
+    .wrapper__44df5 {
+        background-color: var(--bg-3);
+    }
+
+    /* VC popout background */
+    #app-mount .popout__0bd4a {
+        background-color: var(--bg-3);
     }
 }
 
@@ -1703,6 +1824,9 @@ body {
     --top-bar-height: 32px;
     --custom-app-top-bar-height: var(--top-bar-height);
 }
+.refresh-title-bar-small {
+    --custom-app-top-bar-height: var(--top-bar-height);
+}
 
 @property --top-bar-button-position {
     syntax: 'off | hide | serverlist | titlebar';
@@ -1795,10 +1919,7 @@ body {
 @container body style(--top-bar-button-position: titlebar) {
     #app-mount {
         --custom-channel-header-height: calc(var(--guildbar-avatar-size) + var(--space-xs) + var(--border-thickness) * 2);
-        /* --top-bar-right-margin: calc(32px + var(--space-xs)); */
-        --top-bar-right-margin: calc(32px + var(--space-xs));
     }
-
     .title_c38106,
     .trailing_c38106 > a[href='https://support.discord.com'] {
         display: none;
@@ -1811,9 +1932,25 @@ body {
         z-index: 1000;
         padding-right: var(--space-xs);
         height: 32px;
+        transition: transform .2s ease-in-out, opacity .2s ease-in-out;
     }
-    .systemBar_c38106 .trailing_c38106 {
-        top: var(--space-xs);
+    .popout__0bd4a .trailing_c38106 {
+        z-index: 1100;
+    }
+    /* Fix window controls overlapping certain modals */
+    #app-mount,
+    .modal_e44912 {
+        --custom-viewport-padding: calc(var(--space-40) + var(--custom-app-top-bar-height));
+    }
+    .layerContainer__59d0d .carouselModal_d3a6f0 {
+        margin-top: var(--custom-viewport-padding);
+    }
+    /* Move window controls when mod view is open */
+    .base__5e434:has(> .content__5e434 > .page__5e434 > [style^="width"] > :is(.guildSidebar_f75fb0, .sidebarContainer__656be)) .trailing_c38106 {
+        right: calc(var(--gap) + var(--border-thickness) + 480px);
+    }
+    .page__5e434 div[style="width: 480px;"] {
+        min-width: 480px;
     }
     .winButtons_c38106 {
         padding: 0;
@@ -1830,7 +1967,12 @@ body {
     .toolbar__9293f {
         padding-right: var(--top-bar-right-margin);
     }
-    .navBarContent__88ef1,
+    /* Remove unused space when thread or VC chat is open */
+    .page__5e434:has(> div > .chatLayerWrapper__01ae2) .chat_f75fb0.threadSidebarOpen_f75fb0 .toolbar__9293f,
+    .video_cb9592.sidebarOpen_cb9592 .toolbar__9293f {
+        padding-right: 0;
+    }
+    .navBarContent__131a1,
     .headerBarContent__1a9ce {
         padding-right: var(--top-bar-right-margin);
     }
@@ -1860,27 +2002,85 @@ body {
         padding-top: 0;
         padding-bottom: 0;
     }
-    .base__5e434:has(.notice__6e2b9) > .bar_c38106 > .trailing_c38106 {
+    .base__5e434:has(> .notice__6e2b9) > .bar_c38106 > .trailing_c38106 {
         top: calc(var(--top-bar-height) + 8px + 40px + var(--gap) + var(--border-thickness));
     }
-    .base__5e434:has(.winButtons_c38106) {
-        --top-bar-right-margin: calc(32px + 3 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
+    
+    /* Fix header icons and window controls overlap */
+    .base__5e434 {
+        /* Supports up to 6 buttons */
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(1)) { --button-count: 1; }
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(2)) { --button-count: 2; }
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(3)) { --button-count: 3; }
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(4)) { --button-count: 4; }
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(5)) { --button-count: 5; }
+        &:has(> .bar_c38106 > .trailing_c38106 > div:not(.winButtons_c38106):nth-of-type(6)) { --button-count: 6; }
+        
+        &:has(> .bar_c38106 > .trailing_c38106 > .winButtons_c38106) {
+            --top-bar-right-margin: calc(32px * var(--button-count) + (var(--button-count) + 2) * var(--space-xs) + 6 * var(--window-control-size) + var(--window-controls-padding));
+        }
+
+        /* Revert icon sizing changes */
+        .trailing_c38106 {
+            > div:not(.winButtons_c38106),
+            div.clickable__81391 {
+                width: 32px !important;
+                height: 32px !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
     }
-    .base__5e434:has(.trailing_c38106 > .button__85643) {
-        --top-bar-right-margin: calc(32px * 2 + 2 * var(--space-xs));
+    /* Mac / Vesktop users */
+    .base__5e434 {
+        --top-bar-right-margin: calc(32px * var(--button-count) + var(--button-count) * var(--space-xs));
     }
-    .base__5e434:has(.winButtons_c38106):has(.trailing_c38106 > .button__85643) {
-        --top-bar-right-margin: calc(32px * 2 + 5 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
+    /* VC popout */
+    .popout__0bd4a:has(> .titleBar__0bd4a) {
+        --top-bar-right-margin: calc((var(--window-control-size) * 6) + var(--window-controls-padding) + var(--space-xs));
     }
-    /* .base__5e434:has(.trailing_c38106 > .button__85643:nth-of-type(3)) {
-        --top-bar-right-margin: calc(32px * 3 + 3 * var(--space-xs));
+    /* Settings modal in portrait mode */
+    @media screen and (max-width: 1080px) {
+        #app-mount:has(> .appAsidePanelWrapper_a3002d > div > .layerContainer__59d0d .modal_e44912) {
+            .modal_e44912 {
+                padding-top: 0;
+            }
+
+            .trailing_c38106 {
+                top: calc(8.5px + var(--border-thickness));
+                right: var(--border-thickness);
+            }
+
+            .contentHeader_e9e3ed {
+                padding-right: calc((var(--window-control-size) * 6) + var(--window-controls-padding) + var(--space-xs) * 2);
+            }
+        }
     }
-    .base__5e434:has(.winButtons_c38106) {
-        --top-bar-right-margin: calc(32px * 2 + 5 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
+
+    /* Hide page seek arrows */
+    .bar_c38106 .backForwardButtons__63abb {
+        display: none;
     }
-    .base__5e434:has(.winButtons_c38106):has(.trailing_c38106 > .button__85643:nth-of-type(3)) {
-        --top-bar-right-margin: calc(32px * 3 + 6 * var(--space-xs) + 6 * var(--window-control-size) + 1px);
-    } */
+
+    /* Hide trailing in VC wrapper */
+    .base__5e434,
+    .popout__0bd4a {
+        &:has(:is(& > .content__5e434 > .page__5e434 .chat_f75fb0, & > .content__0bd4a .root) > .video_cb9592:not(.sidebarOpen_cb9592) .callContainer_cb9592 > .root_bfe55a.idle_bfe55a) .trailing_c38106 {
+            transform: translateY(-8px);
+            opacity: 0;
+
+            &:hover {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    }
 }
 
 @property --top-bar-title-position {
@@ -1890,7 +2090,7 @@ body {
 }
 
 @container body style(--top-bar-title-position: hide) {
-    .title__85643 {
+    .title_edbb22 {
         display: none;
     }
 }
@@ -1900,8 +2100,12 @@ body {
         padding-left: var(--gap);
         justify-content: flex-start;
     }
-    .title__85643 {
+    .title_edbb22 {
         gap: 4px;
+    }
+    /* Hide page seek arrows */
+    .bar_c38106 .backForwardButtons__63abb {
+        display: none;
     }
 }
 
@@ -1912,11 +2116,11 @@ body {
 }
 
 @container body style(--subtle-top-bar-title: on) {
-    .title__85643 .icon_f34534,
-    .title__85643 > svg {
+    .title_edbb22 .icon_f34534,
+    .title_edbb22 > svg {
         display: none;
     }
-    .title__85643 .text-sm\/medium_cf4812 {
+    .title_edbb22 .text-sm\/medium_cf4812 {
         line-height: 90%;
         font-weight: 700;
         color: var(--text-muted);
@@ -2000,9 +2204,19 @@ body {
     }
 }
 
+/* Extra spacing for CallTimer plugin */
+.connection_e131a9:has(> .inner_e131a9 .labelWrapper__06d62 > a .lineClamp1__4bd52 p) {
+    padding: calc(var(--custom-guild-list-padding) - var(--custom-panels-spacing) + 4px) 0;
+}
+
 /* window-controls.css */
 body {
     --window-control-size: 14px;
+    --window-controls-padding: calc(var(--gap) - (var(--window-control-size) / 2) + 1px);
+}
+
+.winButtons_c38106 {
+    padding-right: var(--window-controls-padding);
 }
 
 @property --custom-window-controls {
@@ -2014,10 +2228,6 @@ body {
 @container body style(--custom-window-controls: on) {
     .winButtons_c38106 {
         gap: 0;
-        padding-right: calc(var(--gap) - (var(--window-control-size) / 2) + 1px);
-    }
-    .winButtons_c38106::before {
-        margin-right: calc(var(--custom-app-top-bar-height) / 4);
     }
     .winButton_c38106 > svg {
         display: none;

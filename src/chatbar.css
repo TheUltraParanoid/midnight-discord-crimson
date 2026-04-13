@@ -51,7 +51,7 @@ body {
     .scroller__36d07::-webkit-scrollbar-track {
         margin-bottom: calc(26px);
     }
-    .chatContent_f75fb0:has(.typing_b88801) .messagesWrapper__36d07::before {
+    .chatContent_f75fb0:has(> .form_f75fb0 > .typing_b88801) .messagesWrapper__36d07::before {
         content: '';
         position: absolute;
         bottom: 0;
@@ -102,11 +102,21 @@ body {
         padding: 0;
         border-radius: var(--radius-lg);
         border: var(--border-thickness) solid var(--border-subtle);
+        background-color: var(--bg-4);
         backdrop-filter: var(--panel-backdrop-filter);
         transition: border-color var(--border-hover-transition);
 
         &:hover {
             border-color: var(--border-hover);
         }
+    }
+    /* "This channel is not in your channel list" header */
+    .chatHeaderBar_dc83f5 {
+        margin: 0px;
+        margin-bottom: var(--gap);
+        padding-left: 28px;
+        border-width: var(--border-thickness);
+        border-radius: var(--radius-lg);
+        background-color: var(--bg-4);
     }
 }

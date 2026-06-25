@@ -22,6 +22,9 @@ body {
     --custom-guild-list-width: calc(var(--guildbar-avatar-size) + var(--custom-guild-list-padding) * 2 + var(--border-thickness) * 2);
 
     --border-hover-transition: 0.2s ease;
+    --elevation-low: none;
+    --elevation-medium: none;
+    --elevation-high: none;
 }
 
 /* panel separation */
@@ -315,6 +318,11 @@ body {
 .popout__0bd4a .content__0bd4a:has(> div > .wrapper_cb9592.fullScreen_cb9592) {
     margin-left: 0;
 }
+/* padding between dm vc and chat*/
+.wrapper_cb9592 ~ .content_f75fb0 {
+    padding-top: var(--gap);
+}
+
 /* Fullscreen VC popout backdrop */
 #app-mount::backdrop {
     display: none;
@@ -516,6 +524,12 @@ body {
     background-color: var(--bg-4);
 }
 
+/* keep the divider below the tags row within the bounds of the new forum post input box */
+.tagsDivider_d9be46 {
+    inset-inline-start: 0px;
+    width: 100%;
+}
+
 /* remove unnecessary backgrounds */
 .app__160d8,
 #app-mount,
@@ -688,7 +702,7 @@ body {
     .channelBottomBarArea_f75fb0 {
         margin-top: var(--gap);
     }
-    .channelTextArea_f75fb0 {
+    #app-mount .channelTextArea_f75fb0 {
         margin: 0;
         background-color: var(--background-base-lower);
         border-radius: var(--radius-lg);
@@ -745,14 +759,14 @@ body {
     --text-5: hsl(220, 15%, 25%); /* muted channels/chats and timestamps */
 
     /* background and dark colors */
-    --bg-1: hsl(220, 15%, 20%); /* dark buttons when clicked */
-    --bg-2: hsl(220, 15%, 16%); /* dark buttons */
-    --bg-3: hsl(220, 15%, 13%); /* spacing, secondary elements */
-    --bg-4: hsl(220, 15%, 10%); /* main background color */
+    --bg-1: hsla(220, 15%, 20%, 1); /* dark buttons when clicked */
+    --bg-2: hsla(220, 15%, 16%, 1); /* dark buttons */
+    --bg-3: hsla(220, 15%, 13%, 1); /* spacing, secondary elements */
+    --bg-4: hsla(220, 15%, 10%, 1); /* main background color */
     --hover: hsla(221, 19%, 40%, 0.1); /* channels and buttons when hovered */
     --active: hsla(220, 19%, 40%, 0.2); /* channels and buttons when clicked or selected */
     --active-2: hsla(220, 19%, 40%, 0.3); /* extra state for transparent buttons */
-    --message-hover: hsla(230, 0%, 0%, 0.1); /* messages when hovered */
+    --message-hover: hsla(220, 0%, 0%, 0.1); /* messages when hovered */
 
     /* accent colors */
     --accent-1: var(--blue-1); /* links and other accent text */
@@ -760,54 +774,55 @@ body {
     --accent-3: var(--blue-3); /* accent buttons */
     --accent-4: var(--blue-4); /* accent buttons when hovered */
     --accent-5: var(--blue-5); /* accent buttons when clicked */
-    --accent-new: var(--blue-2); /* stuff that's normally red like mute/deafen buttons */
-    --mention: linear-gradient(to right, color-mix(in hsl, var(--blue-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
-    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--blue-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
+    --accent-new: var(--accent-2); /* stuff that's normally red like mute/deafen buttons */
+    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
+    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
     --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent); /* background of messages that reply to you */
     --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent); /* background of messages that reply to you when hovered */
 
     /* status indicator colors */
-    --online: var(--green-2); /* change to #43a25a for default */
-    --dnd: var(--red-2); /* change to #d83a42 for default */
-    --idle: var(--yellow-2); /* change to #ca9654 for default */
+    --online: var(--green-2); /* change to #40a258 for default */
+    --dnd: var(--red-2); /* change to #d83a41 for default */
+    --idle: var(--yellow-2); /* change to #cc954c for default */
     --streaming: var(--purple-2); /* change to ##9147ff for default */
-    --offline: var(--text-4); /* change to #83838b for default offline color */
+    --offline: var(--text-4); /* change to #82838b for default offline color */
 
     /* border colors */
-    --border-light: hsl(230, 20%, 40%, 0.1); /* light border color */
-    --border: hsl(230, 20%, 40%, 0.2); /* normal border color */
-    --button-border: hsl(0, 0%, 100%, 0.1); /* neutral border color of buttons */
+    --border-light: var(--hover); /* general light border color */
+    --border: var(--active); /* general normal border color */
+    --border-hover: var(--active); /* border color of panels when hovered */
+    --button-border: hsl(220, 0%, 100%, 0.1); /* neutral border color of buttons */
 
     /* base colors */
-    --red-1: oklch(76% 0.12 0);
+    --red-1: oklch(75% 0.12 0);
     --red-2: oklch(70% 0.12 0);
-    --red-3: oklch(64% 0.12 0);
-    --red-4: oklch(58% 0.12 0);
-    --red-5: oklch(52% 0.12 0);
+    --red-3: oklch(65% 0.12 0);
+    --red-4: oklch(60% 0.12 0);
+    --red-5: oklch(55% 0.12 0);
 
-    --green-1: oklch(76% 0.11 170);
+    --green-1: oklch(75% 0.11 170);
     --green-2: oklch(70% 0.11 170);
-    --green-3: oklch(64% 0.11 170);
-    --green-4: oklch(58% 0.11 170);
-    --green-5: oklch(52% 0.11 160);
+    --green-3: oklch(65% 0.11 170);
+    --green-4: oklch(60% 0.11 170);
+    --green-5: oklch(55% 0.11 160);
 
-    --blue-1: oklch(76% 0.1 215);
+    --blue-1: oklch(75% 0.1 215);
     --blue-2: oklch(70% 0.1 215);
-    --blue-3: oklch(64% 0.1 215);
-    --blue-4: oklch(58% 0.1 215);
-    --blue-5: oklch(52% 0.1 215);
+    --blue-3: oklch(65% 0.1 215);
+    --blue-4: oklch(60% 0.1 215);
+    --blue-5: oklch(55% 0.1 215);
 
     --yellow-1: oklch(80% 0.11 90);
-    --yellow-2: oklch(74% 0.11 90);
-    --yellow-3: oklch(68% 0.11 90);
-    --yellow-4: oklch(62% 0.11 90);
-    --yellow-5: oklch(56% 0.11 90);
+    --yellow-2: oklch(75% 0.11 90);
+    --yellow-3: oklch(70% 0.11 90);
+    --yellow-4: oklch(65% 0.11 90);
+    --yellow-5: oklch(60% 0.11 90);
 
-    --purple-1: oklch(76% 0.11 310);
+    --purple-1: oklch(75% 0.11 310);
     --purple-2: oklch(70% 0.11 310);
-    --purple-3: oklch(64% 0.11 310);
-    --purple-4: oklch(58% 0.11 310);
-    --purple-5: oklch(52% 0.11 310);
+    --purple-3: oklch(65% 0.11 310);
+    --purple-4: oklch(60% 0.11 310);
+    --purple-5: oklch(55% 0.11 310);
 }
 
 @container root style(--colors: on) {
@@ -1171,6 +1186,19 @@ body {
         --radio-foreground-default: lime;
         --radio-foreground-hover: blue;
         --radio-thumb-background-active: var(--text-0);
+        --reaction-background-active: var(--active);
+        --reaction-background-default: var(--hover);
+        --reaction-background-hover: var(--active);
+        --reaction-background-reacted-default: color-mix(in hsl, var(--accent-2), transparent 80%);
+        --reaction-background-reacted-hover: color-mix(in hsl, var(--accent-2), transparent 70%);
+        --reaction-border-active: var(--border);
+        --reaction-border-default: var(--border-light);
+        --reaction-border-hover: var(--border-light);
+        --reaction-border-reacted-default: var(--accent-2);
+        --reaction-text-active: var(--text-2);
+        --reaction-text-default: var(--text-3);
+        --reaction-text-hover: var(--text-2);
+        --reaction-text-reacted-default: var(--text-1);
         --redesign-button-active-background: red;
         --redesign-button-active-pressed-background: yellow;
         --redesign-button-active-text: lime;
@@ -1315,6 +1343,14 @@ body {
         background: var(--bg-3);
     }
 
+    .clickable__9293f .icon__9293f /* main top bar icons */,
+    .clickable__81391 {
+        color: var(--text-4);
+    }
+    .clickable__9293f:hover .icon__9293f {
+        color: var(--text-3);
+    }
+
     .modeUnreadImportant__2ea32 .icon__2ea32,
     .wrapper__2ea32:hover .icon__2ea32 /* correct channel icon color */ {
         color: var(--text-3);
@@ -1333,7 +1369,12 @@ body {
         background: none;
     }
 
-    .sidebar__409aa, /* user settings sidebar */
+    /* dm profile panel custom background footer */
+    .footerButton__272c7,
+    .footerButton__272c7::before {
+        background-color: transparent !important;
+    }
+
     .sidebarRegionScroller__23e6b /* server and channel settings sidebar */ {
         background-color: var(--bg-3);
     }
@@ -1351,17 +1392,6 @@ body {
     .mainCard_f369db /* form posts */,
     .accountProfileCard_a9178b /* account settings profile background */ {
         background-color: var(--bg-3);
-    }
-
-    /* User settings search bar coloring */
-    .fixedContent__409aa {
-        &::after {
-            background: linear-gradient(to bottom, var(--bg-3), transparent);
-        }
-
-        .searchBarContainer_cf016e .wrapper__72c38 {
-            background-color: var(--bg-4);
-        }
     }
 
     .colorable_f1ceac.primaryDark_f1ceac,
@@ -1389,7 +1419,9 @@ body {
         background: var(--reply-hover);
     }
 
-    .voiceBar__7aaec .barText__7aaec, .voiceChannelsIcon__7aaec /* x in voice bar text */ {
+    .voiceBar__7aaec .barText__7aaec, .voiceChannelsIcon__7aaec /* x in voice bar text */,
+    .activeButtonChild_aa63ab /* message bar send button icon */,
+    #app-mount .button_aa63ab:hover .activeButtonChild_aa63ab {
         color: var(--accent-2);
     }
 
@@ -1421,12 +1453,12 @@ body {
     }
 
     .container__3f21e /* settings checkbutton background */,
-    [data-nav-anchor-key="vencord_plugins_category"] .vc-switch-container {
+    .vc-switch-container {
         background-color: var(--bg-1) !important;
         transition: background-color 0.2s ease;
     }
     .container__3f21e.checked__3f21e /* settings checkbutton background */,
-    [data-nav-anchor-key="vencord_plugins_category"] .vc-switch-container.vc-switch-checked {
+    .vc-switch-container.vc-switch-checked {
         background-color: var(--accent-2) !important;
     }
     .container__3f21e .slider__3f21e > svg > path /* settings checkbutton check */,
@@ -1496,14 +1528,15 @@ body {
     .selectedIcon__2f4f7 /* vc selected camera icon */,
     .colorable_f1ceac.primaryDark_f1ceac .centerIcon_f1ceac /* vc icon button */,
     .colorable_f1ceac.primaryDark_f1ceac /* vc icon button nub */,
-    .iconBadge__650eb.base__2b1f5 /* server vc badge */,
+    .iconBadge__650eb.base__463b7 /* server vc badge */,
     #app-mount .akaBadge__488b1 /* aka badge */,
     #app-mount .message__9a9f9 /* you have unsaved settings message */,
-    .friendRequestsButton__523aa .base__2b1f5 /* inbox friend request number */,
+    .friendRequestsButton__523aa .base__463b7 /* inbox friend request number */,
     .tooltipBlack__382e7 /* server boost tooltip */,
     .colorable_f1ceac.primaryDark_f1ceac, .colorable_f1ceac.primaryDark_f1ceac .centerIcon_f1ceac /* vc buttons */,
     .item_caf372.active_caf372 /* settings items active */,
-    .interactive__972a0.interactiveSelected__972a0 /* dms list items active */ {
+    .interactive__972a0.interactiveSelected__972a0 /* dms list items active */,
+    .controlIcon_cf09d8:hover /* video play button hover */ {
         color: var(--text-3);
     }
     .status__2f4f7 path[fill='var(--white)'],
@@ -1513,12 +1546,16 @@ body {
     .grabber_a562c8 /* vc volume slider grabber */ {
         background-color: var(--text-3);
     }
-    .textBadge__2b1f5 /* new text badge (right click on person in vc) */ {
+    .textBadge__463b7 /* new text badge (right click on person in vc) */ {
         color: var(--text-0);
     }
-    .textBadge__2b1f5[style='background-color: var(--primary-500);'] /* vc stream quality badge */ {
+    .textBadge__463b7[style='background-color: var(--primary-500);'] /* vc stream quality badge */ {
         background-color: var(--bg-2) !important;
         --white-500: var(--text-3);
+    }
+    .akaPopoverBadge_f75fb0 /* dm vc user hover AKA badge */,
+    .qualityIndicatorFullQuality__30845 {
+        color: var(--text-3);
     }
 
     .unread__3b95d /* new unreads bar (channel list */,
@@ -1542,7 +1579,7 @@ body {
     }
 
     .container__37e49 /* user panel buttons */,
-        .numberBadge__2b1f5  /* unread number badge */,
+        .numberBadge__463b7  /* unread number badge */,
         .toolbar__9293f /* toolbar button strikethroughs */ {
         --status-danger: var(--accent-new);
     }
@@ -1698,15 +1735,31 @@ body {
 
     .switchIndicator_a28278 {
         transition: 0.2s ease;
+        border: 1px solid var(--border-light) !important;
+
+        /* Off state */
+        &[style^='opacity: 1; background-color: rgba(0, 0, 0, 0.12)'] {
+            background-color: var(--bg-3) !important;
+
+            .thumb_a28278 > rect {
+                fill: var(--text-3) !important;
+            }
+        }
 
         /* Default state */
         &[style^='opacity: 1; background-color: rgb(88, 101, 242)'] {
             background-color: var(--accent-3) !important;
+            border: 1px solid var(--button-border) !important;
         }
 
         /* Hovered state */
         &[style^='opacity: 1; background-color: rgb(68, 82, 187)'] {
             background-color: var(--accent-4) !important;
+        }
+
+        /* Disabled state */
+        &[style^='opacity: 0.5; background-color: rgb(88, 101, 242)'] {
+            background-color: var(--accent-3) !important;
         }
 
         /* Clicked state */
@@ -1718,6 +1771,11 @@ body {
             .thumb_a28278 > svg path {
                 fill: var(--accent-2);
             }
+        }
+
+        .thumb_a28278 > rect {
+            transition: 0.2s ease;
+            fill: var(--bg-4) !important;
         }
     }
 
@@ -1733,6 +1791,11 @@ body {
     /* VC popout background */
     #app-mount .popout__0bd4a {
         background-color: var(--bg-3);
+    }
+
+    .colorable_f1ceac.primaryDark_f1ceac.active_f1ceac:not(.disabled_f1ceac),
+    .colorable_f1ceac.primaryDark_f1ceac:hover:not(.disabled_f1ceac) {
+        background-color: var(--bg-1);
     }
 }
 

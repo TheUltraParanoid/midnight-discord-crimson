@@ -21,6 +21,9 @@ body {
     --custom-guild-list-width: calc(var(--guildbar-avatar-size) + var(--custom-guild-list-padding) * 2 + var(--border-thickness) * 2);
 
     --border-hover-transition: 0.2s ease;
+    --elevation-low: none;
+    --elevation-medium: none;
+    --elevation-high: none;
 }
 
 /* panel separation */
@@ -314,6 +317,11 @@ body {
 .popout__0bd4a .content__0bd4a:has(> div > .wrapper_cb9592.fullScreen_cb9592) {
     margin-left: 0;
 }
+/* padding between dm vc and chat*/
+.wrapper_cb9592 ~ .content_f75fb0 {
+    padding-top: var(--gap);
+}
+
 /* Fullscreen VC popout backdrop */
 #app-mount::backdrop {
     display: none;
@@ -513,6 +521,12 @@ body {
 /* Activity popout message field */
 .replyInput__5ba62 {
     background-color: var(--bg-4);
+}
+
+/* keep the divider below the tags row within the bounds of the new forum post input box */
+.tagsDivider_d9be46 {
+    inset-inline-start: 0px;
+    width: 100%;
 }
 
 /* remove unnecessary backgrounds */

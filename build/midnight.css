@@ -161,8 +161,9 @@ body {
     padding: 0;
 }
 
-.container__9293f /* friends, message requests, + other stuff titlebar */ {
+#app-mount .container__9293f /* friends, message requests, + other stuff titlebar */ {
     margin-bottom: var(--gap);
+    border-bottom: none;
 }
 
 .subtitleContainer_f75fb0 /* chat titlebar  */ {
@@ -248,12 +249,22 @@ body {
     border: none;
 }
 
+.aside_f58343 /* dm user panel wrapper */ {
+    padding: 0;
+    background: none;
+}
+
 .content_f75fb0 > aside > .outer_c0bea0 /* dm user panel */ {
     margin-left: var(--gap);
     overflow: hidden;
     /* min-width: 340px; */
     background-position: center calc(-1 * var(--border-thickness));
     background-size: 100% calc(100% + 2 * var(--border-thickness));
+}
+
+.content_f75fb0 > aside > .outer_c0bea0 /* dm user panel */ {
+    overflow: visible;
+    margin-right: 0;
 }
 
 .searchResultsWrap_a98f3b /* search results */ {
@@ -1242,6 +1253,7 @@ body {
         --scrollbar-auto-track: transparent;
         --scrollbar-thin-thumb: var(--bg-1);
         --scrollbar-thin-track: transparent;
+        --slider-track-background: var(--bg-2);
         --spine-default: var(--text-5);
         --spoiler-hidden-background: yellow;
         --spoiler-hidden-background-hover: lime;
@@ -2252,6 +2264,14 @@ body {
         background: transparent;
         width: 100%;
         height: 100%;
+    }
+
+    .submenuPaddingContainer_c1e9c4>.menu_c1e9c4::before {
+        width: calc(100% - 16px);
+    }
+
+    .submenuPaddingContainer_ce8328>.menu_c1e9c4::before {
+        width: calc(100% - 24px);
     }
 }
 
